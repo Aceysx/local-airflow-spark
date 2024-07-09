@@ -1,0 +1,7 @@
+.idea
+venv
+logs
+__pycache__
+data/extracted_drive_data/**
+data/transformed/**
+.DS_Store
