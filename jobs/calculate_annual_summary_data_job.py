@@ -1,12 +1,15 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count, sum, to_date,year,when,element_at,split
+from pyspark.sql.functions import col, count, sum, to_date, year, when, element_at, split
 import shutil
 import os
 
 spark = (SparkSession.builder.appName("Annual summary")
-         .config("spark.executor.memory", "4g")
-         .config("spark.executor.cores", "2")
-         .config("spark.default.parallelism", "100")
+         .config("spark.executor.memory", "2g")
+         .config("spark.executor.cores", "1")
+         .config("spark.dynamicAllocation.enabled", "true")
+         .config("spark.dynamicAllocation.initialExecutors", "1")
+         .config("spark.dynamicAllocation.minExecutors", "1")
+         .config("spark.dynamicAllocation.maxExecutors", "5")
          .getOrCreate())
 
 extract_dir = "/opt/data/extracted_drive_data"
@@ -22,7 +25,7 @@ result = df.withColumn("year", year("date")) \
 
 result.show()
 
-temp_output_dir = "/opt/data/temp"
+temp_output_dir = "/opt/data/annual-temp"
 final_output_dir = "/opt/data/transformed"
 final_file_name = "drive_data_annual_summary.csv"
 

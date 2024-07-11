@@ -5,6 +5,12 @@ import os
 
 spark = SparkSession.builder \
     .appName("Daily summary") \
+    .config("spark.executor.memory", "2g") \
+    .config("spark.executor.cores", "1") \
+    .config("spark.dynamicAllocation.enabled", "true") \
+    .config("spark.dynamicAllocation.initialExecutors", "1") \
+    .config("spark.dynamicAllocation.minExecutors", "1") \
+    .config("spark.dynamicAllocation.maxExecutors", "5") \
     .getOrCreate()
 
 extract_dir = "/opt/data/extracted_drive_data"
@@ -23,7 +29,7 @@ result = df.groupBy("date") \
 
 result.show()
 
-temp_output_dir = "/opt/data/temp"
+temp_output_dir = "/opt/data/daily-temp"
 final_output_dir = "/opt/data/transformed"
 final_file_name = "drive_data_daily_summary.csv"
 

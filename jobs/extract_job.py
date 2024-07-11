@@ -9,7 +9,7 @@ def download_and_extract_zip(skip):
         return None
 
     extract_to = '/opt/data'
-    url = 'https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q2_2019.zip'
+    url = 'https://f001.backblazeb2.com/file/Backblaze-Hard-Drive-Data/data_Q3_2019.zip'
     extract_dir = os.path.join(extract_to, f"extracted_drive_data")
 
     os.makedirs(extract_dir, exist_ok=True)
